@@ -18,6 +18,8 @@ export default abstract class BaseDeckType implements DeckListConfig {
   abstract sideDeckConfig: DeckConfig | null;
 
   abstract blackListedCards: string[];
+  
+  abstract forbidenCardsTypes: string[];
 
   abstract minLands: number | null;
   abstract maxLands: number | null;
@@ -38,6 +40,7 @@ export default abstract class BaseDeckType implements DeckListConfig {
       card,
       deck,
       blackListedCards,
+      forbidenCardsTypes,
       maxCards,
       maxCardsPerName,
       maxLands,
@@ -45,6 +48,7 @@ export default abstract class BaseDeckType implements DeckListConfig {
       card: Card;
       deck: EnhancedCard[];
       blackListedCards: string[] | null;
+      forbidenCardsTypes: string[] | null;
       maxCards: number | null;
       maxCardsPerName: number | null;
       maxLands: number | null;
@@ -59,12 +63,19 @@ export default abstract class BaseDeckType implements DeckListConfig {
 
       // Blacklisted?
       if (blackListedCards && blackListedCards.includes(name)) return false;
+      
+      // ForbidenType?
+      if(forbidenCardsTypes)
+      for(var i = 0; i < forbidenCardsTypes.length; i++){
+        if (forbidenCardsTypes && forbidenCardsTypes.includes(types[i])) 
+        return false;
+      }
 
       // Do not exceed max card limit
       const allCardsCount = deck.reduce((sum, { quantity }) => sum + quantity, 0);
       if (maxCards && allCardsCount >= maxCards) return false;
 
-      if (types.includes('Land') && supertypes.includes('Basic')) {
+      if (types.includes('Land') && supertypes != null && supertypes.includes('Basic')) {
         // Check for lands type, check global lands count limit
         if (maxLands && typeof maxLands === 'number') {
           const lands = deck.filter(({ type }) => type === 'Land');
@@ -90,6 +101,7 @@ export default abstract class BaseDeckType implements DeckListConfig {
         card,
         deck,
         blackListedCards: this.blackListedCards,
+        forbidenCardsTypes: this.forbidenCardsTypes,
         maxCards: this.maxCards,
         maxCardsPerName: this.maxCardsPerName,
         maxLands: this.maxLands,
@@ -99,12 +111,13 @@ export default abstract class BaseDeckType implements DeckListConfig {
 
     // Specific deck check
     if (config) {
-      const { blackListedCards, maxCards, maxCardsPerName, maxLands } = config;
+      const { blackListedCards, forbidenCardsTypes, maxCards, maxCardsPerName, maxLands } = config;
       if (
         !GenericFilter({
           card,
           deck,
           blackListedCards,
+          forbidenCardsTypes,
           maxCards,
           maxCardsPerName,
           maxLands,

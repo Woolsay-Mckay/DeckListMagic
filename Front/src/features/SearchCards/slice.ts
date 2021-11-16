@@ -29,6 +29,7 @@ const authSlice = createSlice({
     searchCardsPush(state: SearchCards, action: PayloadAction<Card[]>): void {
       state.loading = false;
       state.cardsFound = state.cardsFound.concat(action.payload);
+      state.cardsFound = state.cardsFound.filter(({ name: refName }, pos, arr) => arr.map(({ name }) => name).indexOf(refName) === pos);
     },
     searchCardsError(state: SearchCards, action: PayloadAction<Error>): void {
       state.loading = false;
@@ -55,6 +56,7 @@ export const searchCards = (name: string): AppThunk => async (
 
     let nextRequest:string = `https://api.magicthegathering.io/v1/cards?name=${encodeURI(name)}`;
     let hasNext = true;
+    let isFirst = true;
     do {
       // See https://github.com/MagicTheGathering/mtg-sdk-typescript
       // const cards = await Magic.Cards.where({ name: encodeURI(name) });
@@ -66,12 +68,24 @@ export const searchCards = (name: string): AppThunk => async (
 
       // Check if success and if the request is alway expexted
       if (status === 200 && getState().searchCards.requestId === originRequestId) {
-        dispatch(
-          authSlice.actions.searchCardsPush(
-            // Filter all cards to remove CardName duplicates
-            cards.filter(({ name: refName }, pos, arr) => arr.map(({ name }) => name).indexOf(refName) === pos),
-          ),
-        );
+        if(isFirst){
+          dispatch(
+            authSlice.actions.searchCardsSuccess(
+              // Filter all cards to remove CardName duplicates
+              cards.filter(({ name: refName }, pos, arr) => arr.map(({ name }) => name).indexOf(refName) === pos),
+            ),
+          );
+          isFirst = false;
+        }
+        else {
+          dispatch(
+            authSlice.actions.searchCardsPush(
+              // Filter all cards to remove CardName duplicates
+              cards.filter(({ name: refName }, pos, arr) => arr.map(({ name }) => name).indexOf(refName) === pos),
+            ),
+          );
+            
+        }
 
         const links = decodeLinksFromHeader(headers.link);
         if(links.next) {

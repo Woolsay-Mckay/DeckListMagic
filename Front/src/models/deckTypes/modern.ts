@@ -25,6 +25,8 @@ export default class Modern extends BaseDeckType {
 
   blackListedCards: string[] = [];
 
+  forbidenCardsTypes: string[] = ['Plane'];
+
   minLands = null;
   maxLands = null;
   maxCardsPerName = 4;

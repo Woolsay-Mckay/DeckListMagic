@@ -81,6 +81,7 @@ export interface DeckFilter {
   minCards: number | null;
   maxCards: number | null;
   blackListedCards: string[] | null;
+  forbidenCardsTypes: string[] | null;
 }
 
 export interface DeckConfig extends DeckFilter {
