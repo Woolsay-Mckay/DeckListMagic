@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "formulahendry.auto-rename-tag",
+    "clinyong.vscode-css-modules",
+    "christian-kohler.path-intellisense",
+    "csstools.postcss",
+    "bradlc.vscode-tailwindcss",
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint"
+  ]
+}

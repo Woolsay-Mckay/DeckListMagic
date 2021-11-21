@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import { RootState } from 'authentificatedPages/rootReducer';
 import { signOut } from 'features/auth/authSlice';
-import styles from './profile-overlay.module.scss';
+import styles from './profile-overlay.module.css';
 
 interface Props {
   close: Function;

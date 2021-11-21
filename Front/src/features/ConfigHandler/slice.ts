@@ -25,7 +25,6 @@ const slice = createSlice({
   name: 'configHandler',
   initialState,
   reducers: {
-
     setSaveModalOpened(state: ConfigHandler, action: PayloadAction<boolean>) {
       state.saveModal = {
         ...modalInitialState,
@@ -65,9 +64,7 @@ const slice = createSlice({
   },
 });
 
-export const {
-  setSaveModalOpened,
-} = slice.actions;
+export const { setSaveModalOpened } = slice.actions;
 
 export default slice.reducer;
 
@@ -116,7 +113,7 @@ export default slice.reducer;
 
 //       // Use Set to remove duplicates and push into an array
 //       const idsSet:Set<String> = new Set();
-      
+
 //       if(newDeckConfig.mainDeck) {
 //         newDeckConfig.mainDeck.map(card => {
 //           idsSet.add(card.id)
@@ -137,7 +134,6 @@ export default slice.reducer;
 //         } = await axios.request<CardIdServerResponse>({
 //           url: `https://api.magicthegathering.io/v1/cards/${id}`,
 //         });
-
 
 //         if(newDeckConfig.mainDeck) {
 //           newDeckConfig.mainDeck.filter((card) => card.id === id).map(card => {

@@ -3,7 +3,7 @@
 import React from 'react';
 import Modal from 'react-responsive-modal';
 
-import './modal.scss';
+import './modal.css';
 
 export const MODAL_TYPE = {
   INFO: 'INFO',
@@ -30,7 +30,7 @@ export default ({ type = MODAL_TYPE.INFO, open = false, onClose = () => {}, chil
           onClose={() => onClose()}
           showCloseIcon={false}
         >
-            <div className="modal__content">{children}</div>
+          <div className="modal__content">{children}</div>
         </Modal>
       );
   }

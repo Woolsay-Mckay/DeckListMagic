@@ -20,7 +20,8 @@ import ForgotPasswordNewPassword from 'features/auth/ForgotPasswordNewPassword';
 import HomePage from 'unauthentificatedPages/HomePage';
 import SignUp from 'unauthentificatedPages/SignUp';
 
-import 'react-responsive-modal/styles.css';
+// TODO: How inject with postcss?
+// import 'react-responsive-modal/styles.css';
 
 export default function App(): JSX.Element {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ export default function App(): JSX.Element {
 
   const auth = useSelector((state: RootState) => state.auth);
 
-  let content = undefined;
+  let content: any = undefined;
 
   if (!auth.authData || !auth.authData.user) {
     if (auth.forgotPasswordData && auth.forgotPasswordData.code) {

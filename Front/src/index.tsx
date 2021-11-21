@@ -7,7 +7,7 @@ import axios from 'axios';
 
 import Store, { persistor } from './authentificatedPages/store';
 
-import './App.scss';
+import './App.css';
 
 import awsconfig from './aws-exports';
 Amplify.configure(awsconfig);

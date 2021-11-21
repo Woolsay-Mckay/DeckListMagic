@@ -4,7 +4,7 @@ import { Card } from 'mtgsdk-ts';
 import { EnhancedCard, DeckListConfig, DeckConfig } from '.';
 
 export default abstract class BaseDeckType implements DeckListConfig {
-  constructor({ id = "", name }: { id?: string; name: string }) {
+  constructor({ id = '', name }: { id?: string; name: string }) {
     this.id = id;
     this.name = name;
   }
@@ -18,7 +18,7 @@ export default abstract class BaseDeckType implements DeckListConfig {
   abstract sideDeckConfig: DeckConfig | null;
 
   abstract blackListedCards: string[];
-  
+
   abstract forbidenCardsTypes: string[];
 
   abstract minLands: number | null;
@@ -28,11 +28,11 @@ export default abstract class BaseDeckType implements DeckListConfig {
   abstract maxCards: number | null;
 
   canAddCardToMainDeck(card: Card): boolean {
-    return this.canAddCard(card, this.mainDeck, this.mainDeckConfig)
+    return this.canAddCard(card, this.mainDeck, this.mainDeckConfig);
   }
 
   canAddCardToSideDeck(card: Card): boolean {
-    return this.canAddCard(card, this.sideDeck, this.sideDeckConfig)
+    return this.canAddCard(card, this.sideDeck, this.sideDeckConfig);
   }
 
   canAddCard(card: Card, deck: EnhancedCard[], config: DeckConfig | null): boolean {
@@ -63,13 +63,12 @@ export default abstract class BaseDeckType implements DeckListConfig {
 
       // Blacklisted?
       if (blackListedCards && blackListedCards.includes(name)) return false;
-      
+
       // ForbidenType?
-      if(forbidenCardsTypes)
-      for(var i = 0; i < forbidenCardsTypes.length; i++){
-        if (forbidenCardsTypes && forbidenCardsTypes.includes(types[i])) 
-        return false;
-      }
+      if (forbidenCardsTypes)
+        for (let i = 0; i < forbidenCardsTypes.length; i++) {
+          if (forbidenCardsTypes && forbidenCardsTypes.includes(types[i])) return false;
+        }
 
       // Do not exceed max card limit
       const allCardsCount = deck.reduce((sum, { quantity }) => sum + quantity, 0);

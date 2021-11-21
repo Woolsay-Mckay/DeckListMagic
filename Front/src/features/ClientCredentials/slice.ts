@@ -132,44 +132,48 @@ export const listProjects = (): AppThunk => async (dispatch: AppDispatch, getSta
   }
 };
 
-export const addProject = (name: string): AppThunk => async (dispatch: AppDispatch) => {
-  try {
-    dispatch(authSlice.actions.addProject());
-    await timeout(1000);
-    const id = uuidv4();
-    const project: Project = {
-      id,
-      name,
-      creationDate: moment(),
-      clientId: id,
-      clientSecret: '1chc7n14n5lidpuvpsv3i1iom1glqqc538mnl6uc58r25alhkgsd',
-    };
-    dispatch(authSlice.actions.addProjectSuccess(project));
-  } catch (e) {
-    dispatch(authSlice.actions.addProjectError(e));
-  }
-};
+export const addProject =
+  (name: string): AppThunk =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(authSlice.actions.addProject());
+      await timeout(1000);
+      const id = uuidv4();
+      const project: Project = {
+        id,
+        name,
+        creationDate: moment(),
+        clientId: id,
+        clientSecret: '1chc7n14n5lidpuvpsv3i1iom1glqqc538mnl6uc58r25alhkgsd',
+      };
+      dispatch(authSlice.actions.addProjectSuccess(project));
+    } catch (e) {
+      dispatch(authSlice.actions.addProjectError(e));
+    }
+  };
 
-export const updateProject = (name: string): AppThunk => async (dispatch: AppDispatch, getState: () => RootState) => {
-  try {
-    dispatch(authSlice.actions.updateProject());
-    await timeout(1000);
-    const { selectedProject, projects } = getState().clientCredentials;
-    const projectsList: Project[] = projects.map((p) => {
-      if (p.id === selectedProject?.id) {
-        return {
-          ...p,
-          name,
-        };
-      }
+export const updateProject =
+  (name: string): AppThunk =>
+  async (dispatch: AppDispatch, getState: () => RootState) => {
+    try {
+      dispatch(authSlice.actions.updateProject());
+      await timeout(1000);
+      const { selectedProject, projects } = getState().clientCredentials;
+      const projectsList: Project[] = projects.map((p) => {
+        if (p.id === selectedProject?.id) {
+          return {
+            ...p,
+            name,
+          };
+        }
 
-      return p;
-    });
-    dispatch(authSlice.actions.updateProjectSuccess(projectsList));
-  } catch (e) {
-    dispatch(authSlice.actions.updateProjectError(e));
-  }
-};
+        return p;
+      });
+      dispatch(authSlice.actions.updateProjectSuccess(projectsList));
+    } catch (e) {
+      dispatch(authSlice.actions.updateProjectError(e));
+    }
+  };
 
 export const deleteProject = (): AppThunk => async (dispatch: AppDispatch, getState: () => RootState) => {
   try {

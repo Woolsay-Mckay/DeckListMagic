@@ -54,11 +54,7 @@ export default function NewProjectModal(props: Props): JSX.Element {
   };
 
   if (credentials) {
-    return (
-      <Modal {...props}>
-        Toto
-      </Modal>
-    );
+    return <Modal {...props}>Toto</Modal>;
   }
 
   return (

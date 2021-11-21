@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import NoCard from 'components/NoCard';
 
-import styles from './style.module.scss';
+import styles from './style.module.css';
 
 type AppProps = {
   url: string;

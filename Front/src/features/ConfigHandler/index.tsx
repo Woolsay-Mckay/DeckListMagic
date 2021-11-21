@@ -10,9 +10,7 @@ type AppProps = {
   className?: string;
 };
 
-export default ({
-  className,
-}: AppProps): JSX.Element => {
+export default ({ className }: AppProps): JSX.Element => {
   const dispatch = useDispatch();
   const { opened } = useSelector((state: RootState) => state.configHandler.saveModal);
 
@@ -20,14 +18,9 @@ export default ({
     <div className={className}>
       TODO:: Load and save config
       <SaveModal open={opened} />
-
-      
       <button onClick={() => dispatch(setSaveModalOpened(true))} className="rounded">
         Open
       </button>
     </div>
   );
 };
-
-
-

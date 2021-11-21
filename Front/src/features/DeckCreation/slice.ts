@@ -46,11 +46,11 @@ const slice = createSlice({
     },
     addCard(state: DeckCreation, action: PayloadAction<EnhancedCard | Card>): void {
       if (state.deckListConfig) {
-        if(
-          (state.selectedList == 0 && state.deckListConfig.canAddCardToMainDeck(action.payload))
-          || (state.selectedList == 1 && state.deckListConfig.canAddCardToSideDeck(action.payload))
+        if (
+          (state.selectedList === 0 && state.deckListConfig.canAddCardToMainDeck(action.payload)) ||
+          (state.selectedList === 1 && state.deckListConfig.canAddCardToSideDeck(action.payload))
         ) {
-          const deck = state.selectedList == 0 ? state.deckListConfig.mainDeck : state.deckListConfig.sideDeck
+          const deck = state.selectedList === 0 ? state.deckListConfig.mainDeck : state.deckListConfig.sideDeck;
 
           const index = deck.map(({ id }) => id).indexOf(action.payload.id);
           if (index > -1) {
@@ -61,11 +61,10 @@ const slice = createSlice({
     },
     removeCard(state: DeckCreation, action: PayloadAction<EnhancedCard | Card>): void {
       if (state.deckListConfig) {
-        const deck = state.selectedList == 0 ? state.deckListConfig.mainDeck : state.deckListConfig.sideDeck
+        const deck = state.selectedList === 0 ? state.deckListConfig.mainDeck : state.deckListConfig.sideDeck;
         const index = deck.map(({ id }) => id).indexOf(action.payload.id);
         if (index > -1) {
-          if (deck[index].quantity > 1)
-            deck[index].quantity -= 1;
+          if (deck[index].quantity > 1) deck[index].quantity -= 1;
           else deck.splice(index, 1);
         }
       }
@@ -119,7 +118,7 @@ export const saveDeckListConfig = (): AppThunk => async (dispatch: AppDispatch, 
       dispatch(slice.actions.saveDeckListStart());
 
       const deckToSave = toBackModel(deckListConfig);
-      if(deckToSave.Id) {
+      if (deckToSave.Id) {
         await putAction({
           body: deckToSave,
           path: 'deck',
@@ -139,63 +138,64 @@ export const saveDeckListConfig = (): AppThunk => async (dispatch: AppDispatch, 
 };
 
 type CardIdServerResponse = {
-  card: Card
-}
-
-export const loadDeckListConfig = (id: string): AppThunk => async (
-  dispatch: AppDispatch,
-  getState: () => RootState,
-) => {
-  try {
-    dispatch(slice.actions.loadDeckListStart());
-
-    const deckConfig:BackDeckConfig = await getAction({ path: 'deck' });
-
-    if (deckConfig) {
-      const newDeckConfig = fromBackModel(deckConfig)
-      dispatch(slice.actions.loadDeckListSuccess(newDeckConfig));
-
-      // Use Set to remove duplicates and push into an array
-      const idsSet:Set<String> = new Set();
-      
-      if(newDeckConfig.mainDeck) {
-        newDeckConfig.mainDeck.map(card => {
-          idsSet.add(card.id)
-        })
-      }
-      if(newDeckConfig.sideDeck) {
-        newDeckConfig.sideDeck.map(card => {
-          idsSet.add(card.id)
-        })
-      }
-
-      const ids:String[] = Array.from(idsSet);
-
-      // TODO: Securise if too many calls
-      ids.map(async id => {
-        const {
-          data: { card:updatedCard },
-        } = await axios.request<CardIdServerResponse>({
-          url: `https://api.magicthegathering.io/v1/cards/${id}`,
-        });
-
-
-        if(newDeckConfig.mainDeck) {
-          newDeckConfig.mainDeck.filter((card) => card.id === id).map(card => {
-            card = {...card, ...updatedCard }
-          })
-        }
-        if(newDeckConfig.sideDeck) {
-          newDeckConfig.sideDeck.filter((card) => card.id === id).map(card => {
-            card = {...card, ...updatedCard }
-          })
-        }
-      })
-
-    } else {
-      dispatch(slice.actions.loadDeckListError(new Error("Votre deck liste n'a pas été trouvé")));
-    }
-  } catch (e) {
-    dispatch(slice.actions.loadDeckListError(e));
-  }
+  card: Card;
 };
+
+export const loadDeckListConfig =
+  (id: string): AppThunk =>
+  async (dispatch: AppDispatch, getState: () => RootState) => {
+    try {
+      dispatch(slice.actions.loadDeckListStart());
+
+      const deckConfig: BackDeckConfig = await getAction({ path: 'deck' });
+
+      if (deckConfig) {
+        const newDeckConfig = fromBackModel(deckConfig);
+        dispatch(slice.actions.loadDeckListSuccess(newDeckConfig));
+
+        // Use Set to remove duplicates and push into an array
+        const idsSet: Set<string> = new Set();
+
+        if (newDeckConfig.mainDeck) {
+          newDeckConfig.mainDeck.map((card) => {
+            idsSet.add(card.id);
+          });
+        }
+        if (newDeckConfig.sideDeck) {
+          newDeckConfig.sideDeck.map((card) => {
+            idsSet.add(card.id);
+          });
+        }
+
+        const ids: string[] = Array.from(idsSet);
+
+        // TODO: Securise if too many calls
+        ids.map(async (id) => {
+          const {
+            data: { card: updatedCard },
+          } = await axios.request<CardIdServerResponse>({
+            url: `https://api.magicthegathering.io/v1/cards/${id}`,
+          });
+
+          if (newDeckConfig.mainDeck) {
+            newDeckConfig.mainDeck
+              .filter((card) => card.id === id)
+              .forEach((card) => {
+                card = { ...card, ...updatedCard };
+              });
+          }
+          if (newDeckConfig.sideDeck) {
+            newDeckConfig.sideDeck
+              .filter((card) => card.id === id)
+              .forEach((card) => {
+                card = { ...card, ...updatedCard };
+              });
+          }
+        });
+      } else {
+        dispatch(slice.actions.loadDeckListError(new Error("Votre deck liste n'a pas été trouvé")));
+      }
+    } catch (e) {
+      dispatch(slice.actions.loadDeckListError(e));
+    }
+  };

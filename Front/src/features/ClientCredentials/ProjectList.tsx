@@ -13,7 +13,7 @@ import {
   setSelectedProject,
 } from 'features/ClientCredentials/slice';
 
-import styles from './project-list.module.scss';
+import styles from './project-list.module.css';
 
 export default function ProjectList(): JSX.Element {
   const dispatch = useDispatch();

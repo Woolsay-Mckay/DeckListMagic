@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './step-number.module.scss';
+import styles from './step-number.module.css';
 
 interface Props {
   number: string;

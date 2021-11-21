@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'mtgsdk-ts';
 
-import styles from './style.module.scss';
+import styles from './style.module.css';
 import CardImage from 'components/CardImage';
 
 type AppProps = {

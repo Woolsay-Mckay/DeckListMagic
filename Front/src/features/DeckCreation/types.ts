@@ -7,10 +7,10 @@ export interface DeckCreation {
   error?: Error;
   save: {
     loading?: boolean;
-    error?: Error;  
-  }
+    error?: Error;
+  };
   load: {
     loading?: boolean;
-    error?: Error;  
-  }
+    error?: Error;
+  };
 }

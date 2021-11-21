@@ -1,0 +1,9 @@
+module.exports = {
+  webpack: {},
+  style: {
+    postcss: {
+      plugins: [require('tailwindcss'), require('autoprefixer'), require('postcss-nested')],
+    },
+  },
+  plugins: [],
+};

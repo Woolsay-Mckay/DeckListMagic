@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { EnhancedCard } from 'models/deckTypes';
 
 import InlineCard from '../InlineCard';
-import styles from './style.module.scss';
+import styles from './style.module.css';
 
 type AppProps = {
   cards: EnhancedCard[];

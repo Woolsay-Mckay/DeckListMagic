@@ -15,10 +15,10 @@ export declare enum ColorIdentity {
   G = 4,
 }
 export declare enum Rarity {
-  "Basic Land" = 0,
+  'Basic Land' = 0,
   Common = 1,
   Uncommon = 2,
-  "Mythic Rare" = 3,
+  'Mythic Rare' = 3,
   Timeshifted = 4,
   Masterpiece = 5,
 }
@@ -26,7 +26,7 @@ export declare enum Layout {
   normal = 0,
   split = 1,
   flip = 2,
-  "double-faced" = 3,
+  'double-faced' = 3,
   token = 4,
   plane = 5,
   scheme = 6,
@@ -98,7 +98,7 @@ export interface DeckListConfig extends DeckFilter {
   mainDeckConfig: DeckConfig | null;
   sideDeckConfig: DeckConfig | null;
 
-  canAddCardToMainDeck(card: Card): boolean
-  canAddCardToSideDeck(card: Card): boolean
+  canAddCardToMainDeck(card: Card): boolean;
+  canAddCardToSideDeck(card: Card): boolean;
   canAddCard: (card: RefCard, deck: EnhancedCard[], config: DeckConfig) => boolean;
 }

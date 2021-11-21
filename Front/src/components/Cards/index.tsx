@@ -3,7 +3,7 @@ import { Card } from 'mtgsdk-ts';
 import classnames from 'classnames';
 
 import CardCompo from '../Card';
-import styles from './style.module.scss';
+import styles from './style.module.css';
 
 type AppProps = {
   cards: Card[];

@@ -10,7 +10,7 @@ import ConfigHandler from 'features/ConfigHandler';
 import DeckList from './DeckList';
 
 import { newDeck, addCard, removeCard } from './slice';
-import styles from './style.module.scss';
+import styles from './style.module.css';
 import Modern from 'models/deckTypes/modern';
 
 export default (): JSX.Element | null => {
@@ -19,7 +19,7 @@ export default (): JSX.Element | null => {
   const { deckListConfig, selectedList } = state;
 
   const iniModernDeck = (): void => {
-    dispatch(newDeck(new Modern({ name: "Test" + (Math.random()*1000) })));
+    dispatch(newDeck(new Modern({ name: 'Test' + Math.random() * 1000 })));
   };
 
   let currentDeck: string[];
@@ -51,7 +51,7 @@ export default (): JSX.Element | null => {
 
     return false;
   };
-  
+
   const canRemoveCard = (card: Card): boolean => {
     if (!deckListConfig) return false;
     return currentDeck.indexOf(card.name) >= 0;

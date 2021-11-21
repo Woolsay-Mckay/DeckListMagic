@@ -5,13 +5,14 @@ import { motion, useMotionValue, useAnimation } from 'framer-motion';
 import { RightArrowIcon, CheckIcon } from 'components/SVGs';
 import { Spinner } from 'components/Spinner';
 
-import styles from './slider.module.scss';
+import styles from './slider.module.css';
 
 interface Props {
   loading?: boolean;
   succeeded?: boolean;
   onReachEnd?: () => any;
   [attributes: string]: any;
+  className?: string;
 }
 
 export default function Slider({ loading, succeeded, onReachEnd, className = '' }: Props) {

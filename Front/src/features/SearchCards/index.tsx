@@ -10,7 +10,7 @@ import TextField from 'components/TextField';
 
 import { searchCards } from './slice';
 import CardList from './CardList';
-import styles from './style.module.scss';
+import styles from './style.module.css';
 
 type AppProps = {
   className?: string;
@@ -39,12 +39,12 @@ export default ({
   const [val, setVal] = React.useState('');
   const [,] = useDebounce(
     () => {
-      if(val.length >= 3) {
+      if (val.length >= 3) {
         dispatch(searchCards(val));
       }
     },
     800,
-    [val]
+    [val],
   );
 
   const {
@@ -78,7 +78,6 @@ export default ({
         onChange={onUpdate}
         {...TextFieldProps}
       />
-
       <CardList canAddCard={canAddCard} addCard={addCard} canRemoveCard={canRemoveCard} removeCard={removeCard} />
     </div>
   );

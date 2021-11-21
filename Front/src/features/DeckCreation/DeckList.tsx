@@ -6,7 +6,7 @@ import { RootState } from 'authentificatedPages/rootReducer';
 import DeckList from './Deck';
 
 import { selectDeck } from './slice';
-import styles from './style.module.scss';
+import styles from './style.module.css';
 
 const DeckTabs = (): JSX.Element | null => {
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ export default ({ className }: AppProps): JSX.Element | null => {
   if (!deckListConfig) return null;
 
   return (
-    <div className={classNames(className, "bg-light")}>
+    <div className={classNames(className, 'bg-light')}>
       <DeckTabs />
       <DeckList className={classNames(styles.deckContainer, 'bd-sidebar')} />
     </div>

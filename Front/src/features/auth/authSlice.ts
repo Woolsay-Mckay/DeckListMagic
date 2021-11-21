@@ -292,101 +292,111 @@ export const currentAuthenticatedUser = (): AppThunk => async (dispatch: AppDisp
   }
 };
 
-export const signIn = (email: string, password: string): AppThunk => async (dispatch: AppDispatch) => {
-  try {
-    dispatch(authSlice.actions.signIngIn());
-    const user = await awsAuth.signIn(email, password);
-    dispatch(authSlice.actions.signInSuccess(user));
-  } catch (e) {
-    dispatch(authSlice.actions.signInError(e));
-  }
-};
+export const signIn =
+  (email: string, password: string): AppThunk =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(authSlice.actions.signIngIn());
+      const user = await awsAuth.signIn(email, password);
+      dispatch(authSlice.actions.signInSuccess(user));
+    } catch (e) {
+      dispatch(authSlice.actions.signInError(e));
+    }
+  };
 
-export const confirmSignIn = (cognitoUser: CognitoUser, code: string): AppThunk => async (dispatch: AppDispatch) => {
-  try {
-    dispatch(authSlice.actions.confirming2FA());
-    const user = await awsAuth.confirmSignIn(cognitoUser, code, 'SOFTWARE_TOKEN_MFA');
-    dispatch(authSlice.actions.confirm2FASuccess(user));
-  } catch (e) {
-    dispatch(authSlice.actions.confirm2FAError(e));
-  }
-};
+export const confirmSignIn =
+  (cognitoUser: CognitoUser, code: string): AppThunk =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(authSlice.actions.confirming2FA());
+      const user = await awsAuth.confirmSignIn(cognitoUser, code, 'SOFTWARE_TOKEN_MFA');
+      dispatch(authSlice.actions.confirm2FASuccess(user));
+    } catch (e) {
+      dispatch(authSlice.actions.confirm2FAError(e));
+    }
+  };
 
-export const signUp = (email: string, password: string, firstname: string, lastname: string): AppThunk => async (
-  dispatch: AppDispatch,
-) => {
-  try {
-    dispatch(authSlice.actions.signUpIn());
-    await awsAuth.signUp({
-      username: email,
-      password,
-      attributes: {
-        family_name: lastname,
-        name: firstname,
-      },
-    });
+export const signUp =
+  (email: string, password: string, firstname: string, lastname: string): AppThunk =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(authSlice.actions.signUpIn());
+      await awsAuth.signUp({
+        username: email,
+        password,
+        attributes: {
+          family_name: lastname,
+          name: firstname,
+        },
+      });
 
-    dispatch(authSlice.actions.signUpSuccess(email));
-  } catch (e) {
-    dispatch(authSlice.actions.signUpError(e));
-  }
-};
+      dispatch(authSlice.actions.signUpSuccess(email));
+    } catch (e) {
+      dispatch(authSlice.actions.signUpError(e));
+    }
+  };
 
-export const signUpResendCode = (email: string): AppThunk => async () => {
-  try {
-    await awsAuth.resendSignUp(email);
-  } catch (e) {
-    console.error(e);
-  }
-};
+export const signUpResendCode =
+  (email: string): AppThunk =>
+  async () => {
+    try {
+      await awsAuth.resendSignUp(email);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
-export const confirmSignUp = (email: string, code: string): AppThunk => async (dispatch: AppDispatch) => {
-  try {
-    dispatch(authSlice.actions.confirmSignUpIn());
-    const user = await awsAuth.confirmSignUp(email, code);
+export const confirmSignUp =
+  (email: string, code: string): AppThunk =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(authSlice.actions.confirmSignUpIn());
+      const user = await awsAuth.confirmSignUp(email, code);
 
-    dispatch(authSlice.actions.confirmSignUpSuccess(user));
-  } catch (e) {
-    dispatch(authSlice.actions.confirmSignUpError(e));
-  }
-};
+      dispatch(authSlice.actions.confirmSignUpSuccess(user));
+    } catch (e) {
+      dispatch(authSlice.actions.confirmSignUpError(e));
+    }
+  };
 
-export const completeNewPassword = (cognitoUser: CognitoUser, password: string): AppThunk => async (
-  dispatch: AppDispatch,
-) => {
-  try {
-    dispatch(authSlice.actions.confirmingNewPassword());
-    const user = await awsAuth.completeNewPassword(cognitoUser, password, null);
-    dispatch(authSlice.actions.confirmNewPasswordSuccess(user));
-  } catch (e) {
-    dispatch(authSlice.actions.confirmNewPasswordError(e));
-  }
-};
+export const completeNewPassword =
+  (cognitoUser: CognitoUser, password: string): AppThunk =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(authSlice.actions.confirmingNewPassword());
+      const user = await awsAuth.completeNewPassword(cognitoUser, password, null);
+      dispatch(authSlice.actions.confirmNewPasswordSuccess(user));
+    } catch (e) {
+      dispatch(authSlice.actions.confirmNewPasswordError(e));
+    }
+  };
 
-export const setupTOTP = (user: CognitoUser): AppThunk => async (dispatch: AppDispatch) => {
-  try {
-    dispatch(authSlice.actions.setupTotp());
-    const secretKey = await awsAuth.setupTOTP(user);
-    const code = buildOtpAuthPath({ user, secretKey });
-    dispatch(authSlice.actions.setupTotpSuccess({ qrCode: code, secretKey }));
-  } catch (e) {
-    dispatch(authSlice.actions.setupTotpError(e));
-  }
-};
+export const setupTOTP =
+  (user: CognitoUser): AppThunk =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(authSlice.actions.setupTotp());
+      const secretKey = await awsAuth.setupTOTP(user);
+      const code = buildOtpAuthPath({ user, secretKey });
+      dispatch(authSlice.actions.setupTotpSuccess({ qrCode: code, secretKey }));
+    } catch (e) {
+      dispatch(authSlice.actions.setupTotpError(e));
+    }
+  };
 
-export const verifyTotpToken = (user: CognitoUser, challengeAnswer: string): AppThunk => async (
-  dispatch: AppDispatch,
-) => {
-  try {
-    dispatch(authSlice.actions.verifyingTotp());
-    await awsAuth.verifyTotpToken(user, challengeAnswer);
-    await awsAuth.setPreferredMFA(user, 'TOTP');
-    const userResponse = await awsAuth.currentAuthenticatedUser();
-    dispatch(authSlice.actions.verifyTotpSuccess(userResponse));
-  } catch (e) {
-    dispatch(authSlice.actions.verifyTotpError(e));
-  }
-};
+export const verifyTotpToken =
+  (user: CognitoUser, challengeAnswer: string): AppThunk =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(authSlice.actions.verifyingTotp());
+      await awsAuth.verifyTotpToken(user, challengeAnswer);
+      await awsAuth.setPreferredMFA(user, 'TOTP');
+      const userResponse = await awsAuth.currentAuthenticatedUser();
+      dispatch(authSlice.actions.verifyTotpSuccess(userResponse));
+    } catch (e) {
+      dispatch(authSlice.actions.verifyTotpError(e));
+    }
+  };
 
 export const signOut = (): AppThunk => async (dispatch: AppDispatch) => {
   try {
@@ -398,41 +408,43 @@ export const signOut = (): AppThunk => async (dispatch: AppDispatch) => {
   }
 };
 
-export const askForForgotPassword = (email: string): AppThunk => async (dispatch: AppDispatch) => {
-  try {
-    dispatch(authSlice.actions.askForForgotPasswordIn());
-    await awsAuth.forgotPassword(email);
-    dispatch(authSlice.actions.askForForgotPasswordSuccess(email));
-  } catch (e) {
-    dispatch(authSlice.actions.askForForgotPasswordError(e));
-  }
-};
-
-export const askForForgotPasswordNewPassword = (email: string, code: string, password: string): AppThunk => async (
-  dispatch: AppDispatch,
-) => {
-  try {
-    dispatch(authSlice.actions.askForForgotPasswordIn());
-
-    // Updage password
-    await awsAuth.forgotPasswordSubmit(email, code, password);
-
-    // Sign in
-    const user = await awsAuth.signIn(email, password);
-
-    // Update them together to not blink on the sign in page
-    dispatch(authSlice.actions.askForForgotPasswordNewPasswordSuccess(code));
-    if (user) {
-      dispatch(authSlice.actions.signInSuccess(user));
-    }
-  } catch (e) {
-    if (e.code === 'CodeMismatchException') {
-      dispatch(authSlice.actions.askForForgotPasswordResetCode(e));
-      dispatch(authSlice.actions.askForForgotPasswordError(e));
-    } else {
+export const askForForgotPassword =
+  (email: string): AppThunk =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(authSlice.actions.askForForgotPasswordIn());
+      await awsAuth.forgotPassword(email);
+      dispatch(authSlice.actions.askForForgotPasswordSuccess(email));
+    } catch (e) {
       dispatch(authSlice.actions.askForForgotPasswordError(e));
     }
-  }
-};
+  };
+
+export const askForForgotPasswordNewPassword =
+  (email: string, code: string, password: string): AppThunk =>
+  async (dispatch: AppDispatch) => {
+    try {
+      dispatch(authSlice.actions.askForForgotPasswordIn());
+
+      // Updage password
+      await awsAuth.forgotPasswordSubmit(email, code, password);
+
+      // Sign in
+      const user = await awsAuth.signIn(email, password);
+
+      // Update them together to not blink on the sign in page
+      dispatch(authSlice.actions.askForForgotPasswordNewPasswordSuccess(code));
+      if (user) {
+        dispatch(authSlice.actions.signInSuccess(user));
+      }
+    } catch (e) {
+      if (e.code === 'CodeMismatchException') {
+        dispatch(authSlice.actions.askForForgotPasswordResetCode(e));
+        dispatch(authSlice.actions.askForForgotPasswordError(e));
+      } else {
+        dispatch(authSlice.actions.askForForgotPasswordError(e));
+      }
+    }
+  };
 
 export default authSlice.reducer;
