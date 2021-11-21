@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextField } from '@material-ui/core';
-import { boolean } from 'yup';
+import { TextFieldProps } from '@material-ui/core/TextField';
 
 export default ({
   name,
@@ -10,7 +10,7 @@ export default ({
   errors = {},
   touched = {},
   ...rest
-}: {
+}: Omit<TextFieldProps, 'variant' | 'margin' | 'label' | 'error'> & {
   name: string;
   className?: string;
   placeholder?: string;
