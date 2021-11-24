@@ -29,7 +29,8 @@ const authSlice = createSlice({
     searchCardsPush(state: SearchCards, action: PayloadAction<Card[]>): void {
       state.loading = false;
       state.cardsFound = state.cardsFound.concat(action.payload);
-      state.cardsFound = state.cardsFound.filter(({ name: refName }, pos, arr) => arr.map(({ name }) => name).indexOf(refName) === pos);
+      const cardNames = state.cardsFound.map(({ name }) => name);
+      state.cardsFound = state.cardsFound.filter(({ name }, i) => cardNames.indexOf(name) === i);
     },
     searchCardsError(state: SearchCards, action: PayloadAction<Error>): void {
       state.loading = false;
@@ -54,7 +55,7 @@ export const searchCards = (name: string): AppThunk => async (
     originRequestId = originRequestId + 1;
     dispatch(authSlice.actions.searchCards(originRequestId));
 
-    let nextRequest:string = `https://api.magicthegathering.io/v1/cards?name=${encodeURI(name)}`;
+    let nextRequest: string = `https://api.magicthegathering.io/v1/cards?name=${encodeURI(name)}`;
     let hasNext = true;
     let isFirst = true;
     do {
@@ -68,7 +69,7 @@ export const searchCards = (name: string): AppThunk => async (
 
       // Check if success and if the request is alway expexted
       if (status === 200 && getState().searchCards.requestId === originRequestId) {
-        if(isFirst){
+        if (isFirst) {
           dispatch(
             authSlice.actions.searchCardsSuccess(
               // Filter all cards to remove CardName duplicates
@@ -76,19 +77,17 @@ export const searchCards = (name: string): AppThunk => async (
             ),
           );
           isFirst = false;
-        }
-        else {
+        } else {
           dispatch(
             authSlice.actions.searchCardsPush(
               // Filter all cards to remove CardName duplicates
               cards.filter(({ name: refName }, pos, arr) => arr.map(({ name }) => name).indexOf(refName) === pos),
             ),
           );
-            
         }
 
         const links = decodeLinksFromHeader(headers.link);
-        if(links.next) {
+        if (links.next) {
           nextRequest = links.next;
         } else {
           hasNext = false;
@@ -97,7 +96,6 @@ export const searchCards = (name: string): AppThunk => async (
         hasNext = false;
       }
     } while (hasNext && getState().searchCards.cardsFound.length < 100);
-
   } catch (e) {
     dispatch(authSlice.actions.searchCardsError(e));
   }
