@@ -1,6 +1,6 @@
 // https://magic.wizards.com/en/game-info/gameplay/formats/modern
 
-import { Card } from 'mtgsdk-ts';
+// import { Card } from 'mtgsdk-ts';
 import BaseDeckType from './baseDeckType';
 import { EnhancedCard, DeckConfig } from '../deckTypes';
 
@@ -17,8 +17,14 @@ export default class Modern extends BaseDeckType {
   mainDeck: EnhancedCard[] = [];
   sideDeck: EnhancedCard[] = [];
 
-  mainDeckConfig: DeckConfig | null = null;
-  sideDeckConfig: DeckConfig | null = null;
+  mainDeckConfig: DeckConfig = {
+    name: 'Main',
+    minCards: 60,
+  };
+  sideDeckConfig: DeckConfig = {
+    name: 'Side',
+    maxCards: 15,
+  };
 
   hasCommander = false;
   commander = null;
@@ -30,7 +36,7 @@ export default class Modern extends BaseDeckType {
   minLands = null;
   maxLands = null;
   maxCardsPerName = 4;
-  minCards = 60;
+  minCards = null;
   maxCards = null;
 
   // canAddCard(card: Card, listIndex: number): boolean {
