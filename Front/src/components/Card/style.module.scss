@@ -7,8 +7,10 @@
   margin: 1rem;
   color: #fff;
   cursor: pointer;
+  max-width: 250px;
   width: 250px;
   max-height: 350px;
+  height: 350px;
 
   &:hover &-info,
   &:focus &-info {
@@ -50,6 +52,14 @@
     height: 100%;
   }
   
+  &-add {
+    left: 0.2rem;
+  }
+
+  &-delete {
+    right: 0.2rem;
+  }
+
   &-add, &-delete {
     position: absolute;
     top: 0.2rem;
@@ -82,13 +92,5 @@
       opacity: 0.37;
       background-color: #005e6e;
     }
-  }
-
-  &-add {
-    left: 0.2rem;
-  }
-
-  &-delete {
-    right: 0.2rem;
   }
 }
