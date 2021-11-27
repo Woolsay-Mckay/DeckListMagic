@@ -32,6 +32,7 @@ import { Card } from 'mtgsdk-ts';
 
 export interface SearchCards {
   cardsFound: Card[];
+  searchText: string;
   loading?: boolean;
   error?: Error;
   requestId: number;
