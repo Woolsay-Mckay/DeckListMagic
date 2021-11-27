@@ -9,15 +9,19 @@ import { RootState } from 'authentificatedPages/rootReducer';
 
 const initialState: SearchCards = {
   cardsFound: [],
+  searchText: '',
   loading: false,
   error: undefined,
   requestId: 0,
 };
 
-const authSlice = createSlice({
+const slice = createSlice({
   name: 'searchCards',
   initialState,
   reducers: {
+    updateText(state: SearchCards, action: PayloadAction<string>): void {
+      state.searchText = action.payload;
+    },
     searchCards(state: SearchCards, action: PayloadAction<number>): void {
       state.loading = true;
       state.requestId = action.payload;
@@ -40,20 +44,18 @@ const authSlice = createSlice({
   },
 });
 
-export default authSlice.reducer;
+export const { updateText } = slice.actions;
+export default slice.reducer;
 
 // For mock and demo
 // const timeout = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Load up to 100 cards
-export const searchCards = (name: string): AppThunk => async (
-  dispatch: AppDispatch,
-  getState: () => RootState,
-): Promise<void> => {
+export const searchCards = (): AppThunk => async (dispatch: AppDispatch, getState: () => RootState): Promise<void> => {
   try {
-    let { requestId: originRequestId } = getState().searchCards;
+    let { requestId: originRequestId, searchText: name } = getState().searchCards;
     originRequestId = originRequestId + 1;
-    dispatch(authSlice.actions.searchCards(originRequestId));
+    dispatch(slice.actions.searchCards(originRequestId));
 
     let nextRequest: string = `https://api.magicthegathering.io/v1/cards?name=${encodeURI(name)}`;
     let hasNext = true;
@@ -71,7 +73,7 @@ export const searchCards = (name: string): AppThunk => async (
       if (status === 200 && getState().searchCards.requestId === originRequestId) {
         if (isFirst) {
           dispatch(
-            authSlice.actions.searchCardsSuccess(
+            slice.actions.searchCardsSuccess(
               // Filter all cards to remove CardName duplicates
               cards.filter(({ name: refName }, pos, arr) => arr.map(({ name }) => name).indexOf(refName) === pos),
             ),
@@ -79,7 +81,7 @@ export const searchCards = (name: string): AppThunk => async (
           isFirst = false;
         } else {
           dispatch(
-            authSlice.actions.searchCardsPush(
+            slice.actions.searchCardsPush(
               // Filter all cards to remove CardName duplicates
               cards.filter(({ name: refName }, pos, arr) => arr.map(({ name }) => name).indexOf(refName) === pos),
             ),
@@ -97,6 +99,6 @@ export const searchCards = (name: string): AppThunk => async (
       }
     } while (hasNext && getState().searchCards.cardsFound.length < 100);
   } catch (e) {
-    dispatch(authSlice.actions.searchCardsError(e));
+    dispatch(slice.actions.searchCardsError(e));
   }
 };
