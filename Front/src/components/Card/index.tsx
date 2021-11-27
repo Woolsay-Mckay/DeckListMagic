@@ -25,30 +25,19 @@ export default ({
     /> */}
     <CardImage alt={card.name} className={styles['card-image']} url={card.imageUrl} />
 
-    <div className={styles['card-type']}>
-      <span className="visually-hidden">Info?</span>
-      <i className="fas fa-clone" aria-hidden="true"></i>
-    </div>
+    <div className={styles['card-type']}>{card.name}</div>
     <div className={styles['card-info']}>
-      <ul>
-        <li className={styles['card-name']}>
-          <span>{card.name}</span>
-        </li>
-        {canAddCard(card) ? (
-          <li className={styles['card-add']}>
-            <button onClick={(): void => addCard(card)}>
-              <i className="fas fa-add" aria-hidden="true"></i> Add
-            </button>
-          </li>
-        ) : null}
-        {canRemoveCard(card) ? (
-          <li className={styles['card-delete']}>
-            <button onClick={(): void => removeCard(card)}>
-              <i className="fas fa-delete" aria-hidden="true"></i> Remove
-            </button>
-          </li>
-        ) : null}
-      </ul>
+      <div className={styles['card-name']}>{card.name}</div>
+      {canAddCard(card) ? (
+        <div className={styles['card-add']} onClick={(): void => addCard(card)}>
+          <i className="fas fa-add" aria-hidden="true"></i> +
+        </div>
+      ) : null}
+      {canRemoveCard(card) ? (
+        <div className={styles['card-delete']} onClick={(): void => removeCard(card)}>
+          <i className="fas fa-delete" aria-hidden="true"></i> -
+        </div>
+      ) : null}
     </div>
   </div>
 );
