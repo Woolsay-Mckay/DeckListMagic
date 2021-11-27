@@ -7,8 +7,10 @@
   margin: 1rem;
   color: #fff;
   cursor: pointer;
+  max-width: 223px;
   width: 223px;
   max-height: 350px;
+  height: 350px;
 
   &:hover &-info,
   &:focus &-info {
