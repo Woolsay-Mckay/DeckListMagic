@@ -14,16 +14,18 @@ const LogoSvg = (props) => <span>Best LOGO</span>;
 const MenuLink = ({ path, text }) => {
   const match = useRouteMatch({
     path,
-    exact: true
+    exact: true,
   });
-  const className = match ? classNames('header-menu__link', 'header-menu__link--active') : classNames('header-menu__link')
+  const className = match
+    ? classNames('header-menu__link', 'header-menu__link--active')
+    : classNames('header-menu__link');
 
   return (
     <Link className={className} to={path}>
       {text}
     </Link>
   );
-}
+};
 
 const ProfileSvg = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="25" viewBox="0 0 22 27">
@@ -117,6 +119,7 @@ class Header extends React.Component {
                   <MenuLink path="/" text="Overview" />
                   <MenuLink path="/search" text="Rechercher une carte" />
                   <MenuLink path="/deck-creation" text="Creation de deck" />
+                  <MenuLink path="/QuickView" text="Vue rapide d'un deck" />
                 </div>
               ) : null}
               {isLoggedIn ? (

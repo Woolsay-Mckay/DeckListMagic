@@ -19,10 +19,6 @@ export default ({
   removeCard = (): null => null,
 }: AppProps): JSX.Element => (
   <div className={styles.card}>
-    {/* <img
-      className={styles['card-image']}
-      src={card.imageUrl || 'https://via.placeholder.com/265x370.png?text=Image non trouvée'}
-    /> */}
     <CardImage alt={card.name} className={styles['card-image']} url={card.imageUrl} />
 
     <div className={styles['card-type']}>{card.name}</div>
