@@ -12,10 +12,10 @@ type AppProps = {
 export default ({ cards }: AppProps): JSX.Element => (
   <FlexGrid>
     {cards.map((card, i) => (
-      <FlexGridElement key={i}>
+      <FlexGridElement key={i} className={styles.cardBackground}>
         <CardImage alt={card.name} url={card.imageUrl || ''} />
         <p className={styles.cardDescription}>
-          {card.quantity} - {card.name}
+          ({card.quantity}) {card.name}
         </p>
       </FlexGridElement>
     ))}

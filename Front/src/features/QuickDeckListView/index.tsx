@@ -33,6 +33,7 @@ export default ({ className }: AppProps): JSX.Element | null => {
 
       {!!sideDeckConfig && (
         <>
+          <hr />
           <h2>
             Side Deck ({nbSideDeckCards}
             {sideDeckConfig?.maxCards ? `/${sideDeckConfig?.maxCards}` : ''})
