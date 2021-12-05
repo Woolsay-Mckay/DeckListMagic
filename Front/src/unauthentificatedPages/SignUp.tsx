@@ -23,11 +23,11 @@ export default (): JSX.Element => {
           <SignUp />
 
           <p style={{ marginTop: 40 }} className="text-center">
-            Already have an account? <Link to="/signIn">Sign in</Link>
+            Déjà un compte ? <Link to="/signIn">Connexion</Link>
           </p>
           <p style={{ marginTop: 40 }} className="text-center">
             <div role="link" onClick={onGoToStep2}>
-              Already have a code?
+              Déjà un code ?
             </div>
           </p>
         </>

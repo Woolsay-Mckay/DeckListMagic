@@ -10,8 +10,8 @@ import TextField from 'components/TextField';
 import { emailRegex } from 'utils/regexp';
 
 const schema = yup.object().shape({
-  email: yup.string().required('Email is required').matches(emailRegex, 'Email is not valid'),
-  code: yup.string().required('Code is required'),
+  email: yup.string().required('Le courriel est obligatoire').matches(emailRegex, "Le courriel n'est pas valide"),
+  code: yup.string().required('Le code est obligatoire'),
 });
 
 interface Form {
@@ -57,18 +57,18 @@ export default function SignUp(): JSX.Element {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <h1 className="">Sign up: confirm your email</h1>
+      <h1 className="">Inscrivez-vous : confirmez votre e-mail</h1>
       <div className="error-message c8 my-3">{error?.message}</div>
       <TextField name="email" type="email" placeholder="Email" {...TextFieldProps} />
       <TextField name="code" type="text" placeholder="Code" autoComplete="off" {...TextFieldProps} />
       <button type="submit" className="mt-4" disabled={!isValid}>
-        {loading ? <Spinner /> : 'Submit'}
+        {loading ? <Spinner /> : 'Valider'}
       </button>
 
       <p style={{ marginTop: 20, marginBottom: 20 }} className="text-center">
-        Lost your code?
+        Perdu votre code ?
         <button className="btn btn-link" onClick={onResendCode} disabled={loading}>
-          Resend Code
+          Renvoyer le code
         </button>
       </p>
     </form>

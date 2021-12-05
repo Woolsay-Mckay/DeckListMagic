@@ -12,7 +12,7 @@ export default ({ className }: AppProps): JSX.Element => {
   const { loading, deckListConfig, selectedList } = state;
 
   if (loading) return <Spinner animation="border" className={className} />;
-  if (!deckListConfig) return <div className={className}>No deck config</div>;
+  if (!deckListConfig) return <div className={className}>Pas de configuration de Deck</div>;
 
   const { mainDeck, sideDeck, maxCards } = deckListConfig;
 
@@ -21,8 +21,8 @@ export default ({ className }: AppProps): JSX.Element => {
   if (!currentDeck.length)
     return (
       <div className={classnames(className, 'text-right')}>
-        <div>Cards: 0/{maxCards || '∞'}</div>
-        No card
+        <div>Cartes : 0/{maxCards || '∞'}</div>
+        Pas de carte
       </div>
     );
 
@@ -30,7 +30,7 @@ export default ({ className }: AppProps): JSX.Element => {
   return (
     <div className={classnames(className, 'text-right')}>
       <div>
-        Cards: {nbSelectedCards}/{maxCards || '∞'}
+        Cartes : {nbSelectedCards}/{maxCards || '∞'}
       </div>
       <Cards cards={currentDeck} />
     </div>

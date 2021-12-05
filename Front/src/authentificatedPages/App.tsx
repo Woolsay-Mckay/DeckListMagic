@@ -6,7 +6,6 @@ import { RootState } from 'authentificatedPages/rootReducer';
 import Header from 'components/Header';
 import { currentAuthenticatedUser } from 'features/auth/authSlice';
 import Home from 'features/dashboard/Home';
-import ClientCredentials from 'features/ClientCredentials';
 import DeckCreation from 'features/DeckCreation';
 import SearchCards from 'features/SearchCards';
 import SignIn from 'features/auth/SignIn';
@@ -71,9 +70,6 @@ export default function App(): JSX.Element {
           <Header />
           <div className="main">
             <Switch>
-              <Route path="/client-credentials">
-                <ClientCredentials />
-              </Route>
               <Route path="/deck-creation">
                 <DeckCreation />
               </Route>

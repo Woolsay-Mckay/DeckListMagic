@@ -7,5 +7,5 @@ interface Props {
 }
 
 export default ({ alt }: Props): JSX.Element => (
-  <img alt={alt || 'Unknown'} className={styles['noCard']} src={'/images/nocard.jpg'} />
+  <img alt={alt || 'Inconnu'} className={styles['noCard']} src={'/images/nocard.jpg'} />
 );

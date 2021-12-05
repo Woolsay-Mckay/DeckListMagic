@@ -54,7 +54,7 @@ export default (): JSX.Element => {
 
   return (
     <div className="w-100">
-      <h1>Home page</h1>
+      <h1>Page d'accueil</h1>
       <p>Résultat : {result}</p>
       Action pour tester la création d'un event :
       <button
@@ -98,15 +98,7 @@ export default (): JSX.Element => {
         Test api - Create Deck
       </button>
       Test get decks
-      <button
-        onClick={async (): Promise<void> =>
-          setResult(
-            await testApiGet('/decks'),
-          )
-        }
-      >
-        Test api - get Decks
-      </button>
+      <button onClick={async (): Promise<void> => setResult(await testApiGet('/decks'))}>Test api - get Decks</button>
     </div>
   );
 };

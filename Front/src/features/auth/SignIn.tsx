@@ -10,8 +10,8 @@ import TextField from 'components/TextField';
 import { emailRegex } from 'utils/regexp';
 
 const schema = yup.object().shape({
-  email: yup.string().required('Email is required').matches(emailRegex, 'Email is not valid'),
-  password: yup.string().required('Password is required'),
+  email: yup.string().required('Le courriel est obligatoire').matches(emailRegex, "La courriel n'est pas valide"),
+  password: yup.string().required('Le mot de passe est obligatoire'),
 });
 
 interface Form {
@@ -53,12 +53,12 @@ export default function SignIn(): JSX.Element {
       <h1 className="">Sign in</h1>
       <div className="error-message c8 my-3">{error?.message}</div>
       <TextField name="email" type="email" placeholder="Email" {...TextFieldProps} />
-      <TextField name="password" type="password" placeholder="Password" {...TextFieldProps} />
+      <TextField name="password" type="password" placeholder="Mot de passe" {...TextFieldProps} />
       <button type="submit" className="mt-4" disabled={!isValid}>
-        {loading ? <Spinner /> : 'Submit'}
+        {loading ? <Spinner /> : 'Valider'}
       </button>
       <div className="form-text-action" onClick={onForgotPassword}>
-        Forgot your password ?
+        Mot de passe oublié ?
       </div>
     </form>
   );

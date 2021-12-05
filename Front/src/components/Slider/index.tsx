@@ -40,16 +40,16 @@ export default function Slider({ loading, succeeded, onReachEnd, className = '' 
 
   let circleContent = <RightArrowIcon width="20px" height="22px" />;
   let circleBgc = '#DA0F0F';
-  let sliderMessage = 'Slide to confirm deletion';
+  let sliderMessage = 'Slide pour confirmer la suppression';
 
   if (succeeded) {
     circleContent = <CheckIcon width="22px" height="22px" />;
     circleBgc = '#88c648';
-    sliderMessage = 'Successfully deleted!';
+    sliderMessage = 'Supprimé avec succès !';
   } else if (loading) {
     circleContent = <Spinner />;
     circleBgc = '#005464';
-    sliderMessage = 'Loading...';
+    sliderMessage = 'Chargement...';
   }
 
   return (

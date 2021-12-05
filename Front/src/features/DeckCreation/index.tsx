@@ -19,7 +19,7 @@ export default (): JSX.Element | null => {
   const { deckListConfig, selectedList } = state;
 
   const iniModernDeck = (): void => {
-    dispatch(newDeck(new Modern({ name: "Test" + (Math.random()*1000) })));
+    dispatch(newDeck(new Modern({ name: 'Test' + Math.random() * 1000 })));
   };
 
   let currentDeck: string[];
@@ -51,7 +51,7 @@ export default (): JSX.Element | null => {
 
     return false;
   };
-  
+
   const canRemoveCard = (card: Card): boolean => {
     if (!deckListConfig) return false;
     return currentDeck.indexOf(card.name) >= 0;
@@ -59,11 +59,11 @@ export default (): JSX.Element | null => {
 
   return (
     <div>
-      <div>Deck name</div>
+      <div>Nom du Deck</div>
       <div>
-        Deck action (save, load, ...)
+        Action sur la configuration (sauvegarder, chargement, ...)
         <Button variant="primary" className="mt-4" size="lg" onClick={iniModernDeck}>
-          Init modern deck
+          Initialisation d'un deck de type Modern
         </Button>
         <ConfigHandler />
         {/* <Button variant="primary" className="mt-4" size="lg" onClick={iniTestDeck}>
