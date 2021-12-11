@@ -32,9 +32,7 @@ const slice = createSlice({
     },
     searchCardsPush(state: SearchCards, action: PayloadAction<Card[]>): void {
       state.loading = false;
-      state.cardsFound = state.cardsFound.concat(action.payload);
-      const cardNames = state.cardsFound.map(({ name }) => name);
-      state.cardsFound = state.cardsFound.filter(({ name }, i) => cardNames.indexOf(name) === i);
+      state.cardsFound = filterBetterCards(state.cardsFound.concat(action.payload));
     },
     searchCardsError(state: SearchCards, action: PayloadAction<Error>): void {
       state.loading = false;
@@ -49,6 +47,22 @@ export default slice.reducer;
 
 // For mock and demo
 // const timeout = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
+
+const filterBetterCards = (cards: Card[]): Card[] => {
+  const lowerCaseCardNamesWithImageUrl = cards.map(({ name, imageUrl }) => (imageUrl ? name.toLowerCase() : ''));
+  const lowerCaseCardNames = cards.map(({ name }) => name.toLowerCase());
+
+  return cards.filter(({ name }: Card, pos: number) => {
+    const lowerRefName = name.toLowerCase();
+
+    // First element with imageUrl?
+    const withImagePosition = lowerCaseCardNamesWithImageUrl.indexOf(lowerRefName);
+    if (withImagePosition !== -1) return withImagePosition === pos;
+
+    // Is first element?
+    return lowerCaseCardNames.indexOf(lowerRefName) === pos;
+  });
+};
 
 // Load up to 100 cards
 export const searchCards = (): AppThunk => async (dispatch: AppDispatch, getState: () => RootState): Promise<void> => {
@@ -75,7 +89,7 @@ export const searchCards = (): AppThunk => async (dispatch: AppDispatch, getStat
           dispatch(
             slice.actions.searchCardsSuccess(
               // Filter all cards to remove CardName duplicates
-              cards.filter(({ name: refName }, pos, arr) => arr.map(({ name }) => name).indexOf(refName) === pos),
+              filterBetterCards(cards),
             ),
           );
           isFirst = false;
@@ -83,13 +97,14 @@ export const searchCards = (): AppThunk => async (dispatch: AppDispatch, getStat
           dispatch(
             slice.actions.searchCardsPush(
               // Filter all cards to remove CardName duplicates
-              cards.filter(({ name: refName }, pos, arr) => arr.map(({ name }) => name).indexOf(refName) === pos),
+              filterBetterCards(cards),
             ),
           );
         }
 
         const links = decodeLinksFromHeader(headers.link);
-        if (links.next) {
+        // Have to check if there is a next page and if the current has elements, api could return an empty array with next link...
+        if (links.next && cards.length > 0) {
           nextRequest = links.next;
         } else {
           hasNext = false;
