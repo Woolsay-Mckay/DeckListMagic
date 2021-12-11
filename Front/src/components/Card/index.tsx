@@ -25,7 +25,6 @@ export default ({
     /> */}
     <CardImage alt={card.name} className={styles['card-image']} url={card.imageUrl} />
 
-    <div className={styles['card-type']}>{card.name}</div>
     <div className={styles['card-info']}>
       <div className={styles['card-name']}>{card.name}</div>
       {canAddCard(card) ? (
