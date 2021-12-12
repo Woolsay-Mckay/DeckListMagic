@@ -98,15 +98,9 @@ export default (): JSX.Element => {
         Test api - Create Deck
       </button>
       Test get decks
-      <button
-        onClick={async (): Promise<void> =>
-          setResult(
-            await testApiGet('/decks'),
-          )
-        }
-      >
-        Test api - get Decks
-      </button>
+      <button onClick={async (): Promise<void> => setResult(await testApiGet('/decks'))}>Test api - get Decks</button>
+      Tests
+      <button onClick={async (): Promise<void> => setResult(await testApiGet('/test'))}>Action test on api</button>
     </div>
   );
 };
