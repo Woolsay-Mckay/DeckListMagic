@@ -63,6 +63,7 @@
     ///     "cognitoAuthenticationType" : "$context.identity.cognitoAuthenticationType",
     ///     "cognitoIdentityId" : "$context.identity.cognitoIdentityId",
     ///     "userId": "$context.authorizer.claims['cognito:username']",
+    ///     "groups": "$context.authorizer.claims['cognito:groups']",
     ///     "sub": "$context.authorizer.claims.sub",
     ///     "email": "$context.authorizer.claims.email"
     ///     }
