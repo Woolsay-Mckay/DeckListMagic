@@ -9,21 +9,23 @@ import { setProfileOverlayOpened } from 'features/auth/authSlice';
 
 import './header.scss';
 
-const LogoSvg = (props) => <span>Best LOGO</span>;
+const LogoSvg = (props) => <span>Super LOGO</span>;
 
 const MenuLink = ({ path, text }) => {
   const match = useRouteMatch({
     path,
-    exact: true
+    exact: true,
   });
-  const className = match ? classNames('header-menu__link', 'header-menu__link--active') : classNames('header-menu__link')
+  const className = match
+    ? classNames('header-menu__link', 'header-menu__link--active')
+    : classNames('header-menu__link');
 
   return (
     <Link className={className} to={path}>
       {text}
     </Link>
   );
-}
+};
 
 const ProfileSvg = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="25" viewBox="0 0 22 27">

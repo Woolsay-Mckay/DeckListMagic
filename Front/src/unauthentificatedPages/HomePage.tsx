@@ -4,16 +4,16 @@ import { Link } from 'react-router-dom';
 
 export default (): JSX.Element => (
   <div className="p-5 d-flex flex-column justify-content-between align-items-center">
-    <h1>Home page!</h1>
+    <h1>Page d'acceuil!</h1>
 
     <Link to="/signIn">
       <Button variant="primary" className="mt-4" size="lg">
-        Sign in
+        Connexion
       </Button>
     </Link>
     <Link to="/signUp">
       <Button variant="primary" className="mt-4" size="lg">
-        Sign up
+        Inscription
       </Button>
     </Link>
   </div>

@@ -10,9 +10,9 @@ import TextField from 'components/TextField';
 import { emailRegex } from 'utils/regexp';
 
 const schema = yup.object().shape({
-  email: yup.string().required('Email is required').matches(emailRegex, 'Email is not valid'),
-  password: yup.string().required('Password is required'),
-  passwordConfirmation: yup.string().oneOf([yup.ref('password'), undefined], 'Passwords must match'),
+  email: yup.string().required("L'adresse mail est obligatoire").matches(emailRegex, "La courriel n'est pas valide"),
+  password: yup.string().required('Le mot de passe est obligatoire'),
+  passwordConfirmation: yup.string().oneOf([yup.ref('password'), undefined], 'Les mots de passe ne correspondent pas'),
 });
 
 interface Form {
@@ -52,21 +52,21 @@ export default function SignUp(): JSX.Element {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="m-auto">
-      <h1 className="">Sign up</h1>
+      <h1 className="">Inscription</h1>
       <div className="error-message c8 my-3">{error?.message}</div>
       <TextField name="email" type="email" placeholder="Email" {...TextFieldProps} />
-      <TextField name="password" type="password" placeholder="Password" autoComplete="off" {...TextFieldProps} />
+      <TextField name="password" type="password" placeholder="Mot de passe" autoComplete="off" {...TextFieldProps} />
       <TextField
         name="passwordConfirmation"
         type="password"
-        placeholder="Confirm your password"
+        placeholder="Confirmez votre mot de passe"
         autoComplete="off"
         {...TextFieldProps}
       />
       <TextField name="firstname" type="text" placeholder="Prénom" {...TextFieldProps} />
       <TextField name="lastname" type="text" placeholder="Nom" {...TextFieldProps} />
       <button type="submit" className="mt-4" disabled={!isValid}>
-        {loading ? <Spinner /> : 'Submit'}
+        {loading ? <Spinner /> : 'Valider'}
       </button>
     </form>
   );

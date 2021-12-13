@@ -11,7 +11,7 @@ import TextField from 'components/TextField';
 import { emailRegex } from '../../utils/regexp';
 
 const schema = yup.object().shape({
-  email: yup.string().required('Email is required').matches(emailRegex, 'Email is not valid'),
+  email: yup.string().required("L'adresse mail est obligatoire").matches(emailRegex, "L'adresse mail n'est pas valide"),
 });
 
 interface Form {
@@ -51,15 +51,15 @@ export default function ForgotPasswordAsk(): JSX.Element {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <h1>Forgot your password?</h1>
+      <h1>Mot de passe oublié ?</h1>
       <div className="error-message c8 my-3">{error?.message}</div>
-      <p className="m-0 p-0">Please enter your e-mail address:</p>
+      <p className="m-0 p-0">Veuillez saisir votre adresse e-mail : </p>
       <TextField name="email" type="email" placeholder="your.email@domain.do" {...TextFieldProps} />
       <button type="submit" className="mt-4" disabled={!isValid}>
-        {loading ? <Spinner /> : 'Submit'}
+        {loading ? <Spinner /> : 'Valider'}
       </button>
       <div className="form-text-action" onClick={onCancel}>
-        Cancel
+        Annuler
       </div>
     </form>
   );

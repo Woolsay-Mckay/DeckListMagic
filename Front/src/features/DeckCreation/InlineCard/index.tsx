@@ -35,7 +35,7 @@ export default ({ card }: AppProps): JSX.Element | null => {
         }}
       >
         <img
-          alt={card.name || 'Unknown'}
+          alt={card.name || 'Inconnu'}
           className={styles['card-image']}
           src={card.imageUrl || '/images/nocard.jpg'}
         />

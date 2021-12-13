@@ -9,7 +9,7 @@ import { Spinner } from 'components/Spinner';
 import TextField from 'components/TextField';
 
 const schema = yup.object().shape({
-  code: yup.string().required('Code is required'),
+  code: yup.string().required('Le code est obligatoire'),
 });
 
 interface Form {
@@ -50,19 +50,19 @@ export default function ForgotPasswordAsk(): JSX.Element {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <h1>Reset your password</h1>
+      <h1>Réinitialisez votre mot de passe </h1>
       <div className="error-message c8 my-3">{error?.message}</div>
       <p className="m-0 p-0">
-        A password reset e-mail was sent to {email}.
+        Un e-mail de réinitialisation de mot de passe a été envoyé à {email}.
         <br />
-        Please enter the code you received below:
+        Veuillez entrer le code que vous avez reçu ci-dessous :
       </p>
       <TextField name="code" type="text" placeholder="000000" {...TextFieldProps} />
       <button type="submit" className="mt-4" disabled={!isValid}>
-        {loading ? <Spinner /> : 'Submit'}
+        {loading ? <Spinner /> : 'Valider'}
       </button>
       <div className="form-text-action" onClick={onCancel}>
-        Cancel
+        Annuler
       </div>
     </form>
   );

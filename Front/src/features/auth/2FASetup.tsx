@@ -16,7 +16,7 @@ import twoFactorImg from 'static/images/2FA.png';
 import { AppStoreButton, PlayStoreButton } from 'components/StoreButton';
 
 const schema = yup.object().shape({
-  code: yup.string().required('Token is required'),
+  code: yup.string().required('Le jeton est obligatoire'),
 });
 
 interface Form {
@@ -67,10 +67,10 @@ export default function TwoFactorAuthentication(): JSX.Element {
   return (
     <div className="container">
       <div className="row flex-column">
-        <h1>Two-Factor Authentication</h1>
+        <h1>Authentification à deux facteurs</h1>
         <div className="error-message c8 my-3">{HandleAWSErrorMessage(error)}</div>
         <p className="pl-0 mb-5">
-          Two-Factor Authentication (2FA) enhance the security of your Deck list For Developers account.
+          L'authentification à deux facteurs (2FA) améliore la sécurité de votre compte Decklist
         </p>
         <div className="d-flex align-items-center mb-4">
           <img alt="Google Authenticator Logo" style={{ width: 26, height: 26 }} src={twoFactorImg} />
@@ -79,7 +79,7 @@ export default function TwoFactorAuthentication(): JSX.Element {
         <div className="d-flex mb-4">
           <StepNumber number="1" />
           <div className="pl-3">
-            <p className="p-0">Download and install Google Authenticator</p>
+            <p className="p-0">Téléchargez et installez Google Authenticator</p>
             <div className="d-flex mb-4">
               <a
                 target="_blank"
@@ -101,7 +101,9 @@ export default function TwoFactorAuthentication(): JSX.Element {
         <div className="d-flex mb-4">
           <StepNumber number="2" />
           <div className="pl-3">
-            <p className="p-0">Open Google Authenticator and scan the QR code or manualy enter the key below</p>
+            <p className="p-0">
+              Ouvrez Google Authenticator et scannez le code QR ou entrez manuellement la clé ci-dessous{' '}
+            </p>
             <div className="d-flex align-items-center ">
               {qrCode && (
                 <span className="mr-4">
@@ -123,10 +125,10 @@ export default function TwoFactorAuthentication(): JSX.Element {
                   >
                     {copied && (
                       <span style={{ position: 'absolute', right: 10, top: 10, fontSize: 11, color: '#005464' }}>
-                        Copied !
+                        Copié !
                       </span>
                     )}
-                    <div style={{ color: '#7E878C', fontSize: 15 }}>2FA backup key</div>
+                    <div style={{ color: '#7E878C', fontSize: 15 }}>Clé de sauvegarde 2FA</div>
                     <div
                       style={{
                         color: '#232323',
@@ -149,16 +151,16 @@ export default function TwoFactorAuthentication(): JSX.Element {
         <div className="d-flex">
           <StepNumber number="2" />
           <div className="pl-3">
-            <p className="p-0">Enter Google Authenticator 2FA token</p>
+            <p className="p-0">Entrez le jeton Google Authenticator 2FA</p>
 
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
               <TextField name="code" type="string" placeholder="2FA token" {...TextFieldProps} />
               <button type="submit" className="mt-4" disabled={!isValid}>
-                {loading ? <Spinner /> : 'Submit'}
+                {loading ? <Spinner /> : 'Valider'}
               </button>
 
               <div className="form-text-action" onClick={handleCancel}>
-                Cancel
+                Annuler
               </div>
             </form>
           </div>

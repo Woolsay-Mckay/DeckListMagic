@@ -27,7 +27,7 @@ export default function CopyTextField({ label, text, ...rest }: Props) {
           <div>{label}</div>
           <div className={styles.value}>{text}</div>
         </span>
-        {copied ? <span className={styles.copiedTag}>Copied !</span> : <CopyIcon width="20px" height="20px" />}
+        {copied ? <span className={styles.copiedTag}>Copié !</span> : <CopyIcon width="20px" height="20px" />}
       </div>
     </CopyToClipboard>
   );

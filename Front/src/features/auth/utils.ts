@@ -20,7 +20,7 @@ export function HandleAWSErrorMessage(error: Error | undefined): string {
 
   switch (error.code) {
     case AWSErrorCode.INVALID_PARAMETER_EXCEPTION:
-      return `2 validation errors detected: Your user code should respect the following rules : length less or equal to 6 characters and only alphanumeric characters are allowed ( no special characters such as : ! # @ ...)`;
+      return `2 erreurs de validation détectées : Votre code utilisateur doit respecter les règles suivantes : longueur inférieure ou égale à 6 caractères et seuls les caractères alphanumériques sont autorisés ( pas de caractères spéciaux tels que : ! # @ ...) `;
     default:
       return error.message;
   }

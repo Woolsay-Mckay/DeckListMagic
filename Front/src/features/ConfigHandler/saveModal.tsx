@@ -5,9 +5,6 @@ import * as yup from 'yup';
 
 import { RootState } from 'authentificatedPages/rootReducer';
 import Modal from 'components/Modal';
-import { Spinner } from 'components/Spinner';
-import TextField from 'components/TextField';
-import { WarningIcon, DownloadIcon } from 'components/SVGs';
 import { setSaveModalOpened } from './slice';
 
 const schema = yup.object().shape({
@@ -24,26 +21,8 @@ interface Props {
 }
 
 export default function NewProjectModal(props: Props): JSX.Element {
-  const {
-    register,
-    handleSubmit,
-    errors,
-    getValues,
-    formState: { touched },
-  } = useForm<Form>({
-    validationSchema: schema,
-    mode: 'onChange',
-  });
-
-  const TextFieldProps = {
-    touched,
-    errors,
-    inputRef: register,
-    values: getValues(),
-  };
-
   const dispatch = useDispatch();
-  const { loading, credentials } = useSelector((state: RootState) => state.clientCredentials.addModal);
+  // const { loading, credentials } = useSelector((state: RootState) => state.auth.addModal);
 
   const onSubmit = async ({ applicationName }: Form) => {
     // dispatch(addProject(applicationName));
@@ -53,18 +32,14 @@ export default function NewProjectModal(props: Props): JSX.Element {
     dispatch(setSaveModalOpened(false));
   };
 
-  if (credentials) {
-    return (
-      <Modal {...props}>
-        Toto
-      </Modal>
-    );
-  }
+  // if (credentials) {
+  //   return <Modal {...props}>Toto</Modal>;
+  // }
 
   return (
     <Modal {...props}>
       <div onClick={() => onClose()} style={{ maxWidth: 200 }} className="button outline">
-        Cancel
+        Annuler
       </div>
     </Modal>
   );

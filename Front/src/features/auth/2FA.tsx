@@ -10,7 +10,7 @@ import TextField from 'components/TextField';
 import twoFactorImg from 'static/images/2FA.png';
 
 const schema = yup.object().shape({
-  code: yup.string().required('Token is required'),
+  code: yup.string().required('Le jeton est obligatoire'),
 });
 
 interface Form {
@@ -52,18 +52,18 @@ export default function TwoFactorAuthentication(): JSX.Element {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <h1>Two-Factor Authentication</h1>
+      <h1>Authentification à deux facteurs </h1>
       <div className="error-message c8 my-3">{error?.message}</div>
       <div className="d-flex align-items-center">
         <img alt="Google Authenticator Logo" className="pr-3" src={twoFactorImg} />
-        <p className="m-0 p-0">Enter Google Authenticator 2FA token</p>
+        <p className="m-0 p-0">Entrez le jeton Google Authenticator 2FA</p>
       </div>
       <TextField name="code" type="string" placeholder="2FA token" {...TextFieldProps} />
       <button type="submit" className="mt-4" disabled={!isValid}>
-        {loading ? <Spinner /> : 'Submit'}
+        {loading ? <Spinner /> : 'Valider'}
       </button>
       <div className="form-text-action" onClick={handleCancel}>
-        Cancel
+        Annuler
       </div>
     </form>
   );

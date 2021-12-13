@@ -12,8 +12,8 @@ const schema = yup.object().shape({
   password: yup
     .string()
     // .matches(passwordRegex, 'Password must have uppercase, symbol characters and must have length greater than or equal to 6')
-    .required('Password is required'),
-  passwordConfirmation: yup.string().oneOf([yup.ref('password'), undefined], 'Passwords must match'),
+    .required('Le mot de passe est obligatoire'),
+  passwordConfirmation: yup.string().oneOf([yup.ref('password'), undefined], 'Les mots de passe ne correspondent pas'),
 });
 
 interface Form {
@@ -59,14 +59,19 @@ export default function NewPasswordRequired(): JSX.Element {
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <h1>Update your password</h1>
       <div className="error-message c8 my-3">{error?.message}</div>
-      <TextField name="password" type="password" placeholder="Password" {...TextFieldProps} />
-      <TextField name="passwordConfirmation" type="password" placeholder="Confirm your password" {...TextFieldProps} />
+      <TextField name="password" type="password" placeholder="Mot de passe" {...TextFieldProps} />
+      <TextField
+        name="passwordConfirmation"
+        type="password"
+        placeholder="Confirmez votre mot de passe"
+        {...TextFieldProps}
+      />
       <button type="submit" className="mt-4" disabled={!isValid}>
-        {loading ? <Spinner /> : 'Submit'}
+        {loading ? <Spinner /> : 'Valider'}
       </button>
 
       <div className="form-text-action mb-4" onClick={handleCancel}>
-        Cancel
+        Annuler
       </div>
     </form>
   );
