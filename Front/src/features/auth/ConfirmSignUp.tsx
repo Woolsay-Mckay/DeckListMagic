@@ -10,7 +10,7 @@ import TextField from 'components/TextField';
 import { emailRegex } from 'utils/regexp';
 
 const schema = yup.object().shape({
-  email: yup.string().required('Le courriel est obligatoire').matches(emailRegex, "Le courriel n'est pas valide"),
+  email: yup.string().required("L'adresse mail est obligatoire").matches(emailRegex, "L'adresse mail n'est pas valide"),
   code: yup.string().required('Le code est obligatoire'),
 });
 
@@ -66,7 +66,7 @@ export default function SignUp(): JSX.Element {
       </button>
 
       <p style={{ marginTop: 20, marginBottom: 20 }} className="text-center">
-        Perdu votre code ?
+        Code perdu ?
         <button className="btn btn-link" onClick={onResendCode} disabled={loading}>
           Renvoyer le code
         </button>

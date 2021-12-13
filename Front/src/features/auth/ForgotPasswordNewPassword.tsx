@@ -18,7 +18,7 @@ const schema = yup.object().shape({
     //   'Password must have uppercase, symbol characters and must have length greater than or equal to 6',
     // )
     .required('Le mot de passe est obligatoire'),
-  passwordConfirmation: yup.string().oneOf([yup.ref('password'), undefined], 'Les mots de passent ne coïncide pas'),
+  passwordConfirmation: yup.string().oneOf([yup.ref('password'), undefined], 'Les mots de passe ne correspondent pas'),
 });
 
 interface Form {

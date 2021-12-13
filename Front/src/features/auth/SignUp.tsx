@@ -10,9 +10,9 @@ import TextField from 'components/TextField';
 import { emailRegex } from 'utils/regexp';
 
 const schema = yup.object().shape({
-  email: yup.string().required('Le courriel est obligatoire').matches(emailRegex, "La courriel n'est pas valide"),
+  email: yup.string().required("L'adresse mail est obligatoire").matches(emailRegex, "La courriel n'est pas valide"),
   password: yup.string().required('Le mot de passe est obligatoire'),
-  passwordConfirmation: yup.string().oneOf([yup.ref('password'), undefined], 'Les mots de passes de coïncide pas'),
+  passwordConfirmation: yup.string().oneOf([yup.ref('password'), undefined], 'Les mots de passe ne correspondent pas'),
 });
 
 interface Form {

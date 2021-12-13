@@ -11,7 +11,7 @@ import TextField from 'components/TextField';
 import { emailRegex } from '../../utils/regexp';
 
 const schema = yup.object().shape({
-  email: yup.string().required('Le courriel est obligatoire').matches(emailRegex, "Le courriel n'est pas valide"),
+  email: yup.string().required("L'adresse mail est obligatoire").matches(emailRegex, "L'adresse mail n'est pas valide"),
 });
 
 interface Form {

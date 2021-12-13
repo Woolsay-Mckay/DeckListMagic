@@ -63,7 +63,7 @@ export default (): JSX.Element | null => {
       <div>
         Action sur la configuration (sauvegarder, chargement, ...)
         <Button variant="primary" className="mt-4" size="lg" onClick={iniModernDeck}>
-          Initialisation d'un deck de type Modern
+          Initialisation d'un deck Modern
         </Button>
         <ConfigHandler />
         {/* <Button variant="primary" className="mt-4" size="lg" onClick={iniTestDeck}>

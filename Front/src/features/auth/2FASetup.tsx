@@ -70,7 +70,7 @@ export default function TwoFactorAuthentication(): JSX.Element {
         <h1>Authentification à deux facteurs</h1>
         <div className="error-message c8 my-3">{HandleAWSErrorMessage(error)}</div>
         <p className="pl-0 mb-5">
-          Authentification à deux facteurs (2FA) améliore la sécurité de votre compte Decklist
+          L'authentification à deux facteurs (2FA) améliore la sécurité de votre compte Decklist
         </p>
         <div className="d-flex align-items-center mb-4">
           <img alt="Google Authenticator Logo" style={{ width: 26, height: 26 }} src={twoFactorImg} />
@@ -79,7 +79,7 @@ export default function TwoFactorAuthentication(): JSX.Element {
         <div className="d-flex mb-4">
           <StepNumber number="1" />
           <div className="pl-3">
-            <p className="p-0">Télécharge et installe Google Authenticator</p>
+            <p className="p-0">Téléchargez et installez Google Authenticator</p>
             <div className="d-flex mb-4">
               <a
                 target="_blank"
