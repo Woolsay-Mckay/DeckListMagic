@@ -1,9 +1,9 @@
 import React from 'react';
 import { Card } from 'mtgsdk-ts';
-import classnames from 'classnames';
 
-import CardCompo from '../Card';
-import styles from './style.module.scss';
+import CardComponent from 'components/Card';
+import FlexGrid from 'components/FlexGrid';
+import FlexGridElement from 'components/FlexGridElement';
 
 type AppProps = {
   cards: Card[];
@@ -22,16 +22,17 @@ export default ({
   canRemoveCard = (): boolean => false,
   removeCard = (): null => null,
 }: AppProps): JSX.Element => (
-  <div className={classnames(styles.cards, className)}>
+  <FlexGrid className={className}>
     {cards.map((card, i) => (
-      <CardCompo
-        card={card}
-        key={i}
-        canAddCard={canAddCard}
-        addCard={addCard}
-        canRemoveCard={canRemoveCard}
-        removeCard={removeCard}
-      />
+      <FlexGridElement key={i}>
+        <CardComponent
+          card={card}
+          canAddCard={canAddCard}
+          addCard={addCard}
+          canRemoveCard={canRemoveCard}
+          removeCard={removeCard}
+        />
+      </FlexGridElement>
     ))}
-  </div>
+  </FlexGrid>
 );

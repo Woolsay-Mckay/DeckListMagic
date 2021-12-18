@@ -1,16 +1,6 @@
 .card {
-  // border: 2px solid #e7e7e7;
-  // border-radius: 4px;
-  // padding: .5rem;
-  position: relative;
-  flex: 1 0 auto;
-  margin: 1rem;
-  color: #fff;
-  cursor: pointer;
-  max-width: 250px;
-  width: 250px;
-  max-height: 350px;
-  height: 350px;
+  height: 100%;
+  width: 100%;
 
   &:hover &-info,
   &:focus &-info {

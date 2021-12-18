@@ -9,6 +9,7 @@ import Home from 'features/dashboard/Home';
 import ClientCredentials from 'features/ClientCredentials';
 import DeckCreation from 'features/DeckCreation';
 import SearchCards from 'features/SearchCards';
+import QuickDeckListView from 'features/QuickDeckListView';
 import SignIn from 'features/auth/SignIn';
 import TwoFactorAuthentication from 'features/auth/2FA';
 import NewPasswordRequired from 'features/auth/NewPasswordRequired';
@@ -79,6 +80,9 @@ export default function App(): JSX.Element {
               </Route>
               <Route path="/search">
                 <SearchCards />
+              </Route>
+              <Route path="/QuickView">
+                <QuickDeckListView />
               </Route>
               <Route path="/">
                 <Home />

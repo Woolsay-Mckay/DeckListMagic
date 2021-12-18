@@ -1,0 +1,22 @@
+.cardBackground {
+  // background-color: bisque;
+}
+
+.cardDescription {
+  background-color: #005464;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
+  height: 2rem;
+  top: -1rem;
+  position: relative;
+
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+  
+.card-image {
+  height: 100%;
+}
